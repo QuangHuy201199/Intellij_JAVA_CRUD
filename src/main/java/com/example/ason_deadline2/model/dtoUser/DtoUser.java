@@ -2,6 +2,8 @@ package com.example.ason_deadline2.model.dtoUser;
 
 import lombok.*;
 
+import java.lang.reflect.Proxy;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
 @Getter
@@ -14,5 +16,7 @@ public class DtoUser {
     private LocalDate dateCreate;
     private Boolean status;
     private String passWord;
+    private String dateOfBirth;
+
 }
 

@@ -8,6 +8,7 @@ public class MapperUser {
     public static EntityUser mapEntity(InUser inUser){
         EntityUser entityUser = new EntityUser();
         entityUser.setNameUser(inUser.getNameUser());
+        entityUser.setDateOfBirth(inUser.getDateOfBirth());l
         if (inUser.getStatus()== null){
             entityUser.setStatus(true);
         }else {
@@ -27,6 +28,7 @@ public class MapperUser {
         dtoUser.setStatus(entityUser.getStatus());
         dtoUser.setPassWord(entityUser.getPassWord());
         dtoUser.setDateCreate(entityUser.getDateCreate());
+        dtoUser.setDateOfBirth(entityUser.getDateOfBirth());
         return dtoUser;
     }
 }

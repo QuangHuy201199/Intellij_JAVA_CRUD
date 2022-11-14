@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -22,37 +23,52 @@ public class ServiceImpl implements ServiceUser {
     private RepositoryUser repositoryUser;
 
     @Override
-    public RespondUser pagination(Integer activePage, Integer limit) {
-        Integer activePageFix = activePage - 1;
-        Pageable pageable = PageRequest.of(activePageFix, limit);
-        Page<EntityUser> page = repositoryUser.findAll(pageable);
-        List<DtoUser> listDto = page.stream().map(MapperUser::mapDto).collect(Collectors.toList());
-
-        return new RespondUser("Success", listDto, page.getTotalPages(), page.getTotalElements());
+    public RespondUser pagination(Integer page, Integer limit) {
+        Integer activePageFix = page - 1;
+        Sort sort = Sort.by("id").descending();
+        Pageable pageable = PageRequest.of(activePageFix, limit, sort);
+        Page<EntityUser> list = repositoryUser.findAll(pageable);
+        List<DtoUser> listDto = list.stream().map(MapperUser::mapDto).collect(Collectors.toList());
+        return new RespondUser("Success", listDto, list.getTotalPages(), list.getTotalElements(), page);
     }
 
     @Override
     public RespondUser create(InUser inUser) {
-        EntityUser entityUser = MapperUser.mapEntity(inUser);
-        entityUser.setDateCreate(LocalDate.now());
-        repositoryUser.save(entityUser);
-        return new RespondUser("Success");
+        if(inUser.getNameUser() == ""|| inUser.getNameUser() == null){
+            return new RespondUser("Bạn phải nhập tên tài khoản !");
+        }
+        else{
+            EntityUser entityUser = MapperUser.mapEntity(inUser);
+            entityUser.setDateCreate(LocalDate.now());
+            repositoryUser.save(entityUser);
+            return new RespondUser("Tạo tài khoản thành công !");
+        }
+
     }
 
     @Override
     public RespondUser delete(Integer id) {
         EntityUser entityUser = repositoryUser.getById(id);
         repositoryUser.delete(entityUser);
-        return new RespondUser("Success");
+        return new RespondUser("Xóa tài khoản thành công !");
     }
 
     @Override
     public RespondUser update(Integer id, InUser inUser) {
+            EntityUser entityUser = repositoryUser.getById(id);
+            entityUser.setPassWord(inUser.getPassWord());
+            entityUser.setNameUser(inUser.getNameUser());
+            entityUser.setStatus(inUser.getStatus());
+            repositoryUser.save(entityUser);
+            return new RespondUser("Update thành công !");
+    }
+
+    @Override
+    public RespondUser updateStatus(Integer id, InUser inUser) {
         EntityUser entityUser = repositoryUser.getById(id);
-        entityUser.setPassWord(inUser.getPassWord());
-        entityUser.setNameUser(inUser.getNameUser());
         entityUser.setStatus(inUser.getStatus());
         repositoryUser.save(entityUser);
-        return new RespondUser("Success");
+        return new RespondUser("Update trạng thái  thành công !");
+
     }
 }

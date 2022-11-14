@@ -8,12 +8,14 @@ public class RespondUser {
     private Object data;
     private Number totalPage;
     private Number totalElement;
+    private  Number activePage;
 
-    public RespondUser(String message, Object data, Number totalPage, Number totalElement) {
+    public RespondUser(String message, Object data, Number totalPage, Number totalElement, Number activePage) {
         this.message = message;
         this.data = data;
         this.totalPage = totalPage;
         this.totalElement = totalElement;
+        this.activePage = activePage;
     }
 
     public RespondUser(String message) {

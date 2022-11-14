@@ -11,4 +11,6 @@ public interface RepositoryUser extends JpaRepository<EntityUser, Integer> {
     EntityUser getById(Integer Id);
 
     Page<EntityUser> findAll(Pageable pageable);
+
+
 }

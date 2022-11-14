@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.lang.reflect.Proxy;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
 @Entity
@@ -21,4 +23,5 @@ public class EntityUser {
     private LocalDate dateCreate;
     private Boolean status;
     private String passWord;
+    private String dateOfBirth;
 }

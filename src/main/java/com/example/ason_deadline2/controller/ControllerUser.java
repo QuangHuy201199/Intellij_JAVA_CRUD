@@ -15,8 +15,8 @@ public class ControllerUser {
     @Autowired
     private ServiceUser serviceUser;
     @GetMapping("")
-    public ResponseEntity<?> pagination(@RequestParam Integer activePage, @RequestParam Integer limit){
-        return new ResponseEntity(serviceUser.pagination(activePage, limit), HttpStatus.OK);
+    public ResponseEntity<?> pagination(@RequestParam Integer page, @RequestParam Integer limit){
+        return new ResponseEntity(serviceUser.pagination(page, limit), HttpStatus.OK);
     }
 
     @PostMapping("")
@@ -32,5 +32,9 @@ public class ControllerUser {
     @PutMapping("/{Id}")
     public ResponseEntity<?> put(@PathVariable Integer Id, @RequestBody InUser inUser){
         return new ResponseEntity<>(serviceUser.update(Id, inUser), HttpStatus.OK);
+    }
+    @PutMapping("/status/{Id}")
+    public ResponseEntity<?> updateStatus(@PathVariable Integer Id, @RequestBody InUser inUser){
+        return new ResponseEntity<>(serviceUser.updateStatus(Id, inUser), HttpStatus.OK);
     }
 }
