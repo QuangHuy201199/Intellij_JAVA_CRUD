@@ -23,14 +23,16 @@ public class ServiceImpl implements ServiceUser {
     private RepositoryUser repositoryUser;
 
     @Override
-    public RespondUser pagination(Integer page, Integer limit) {
+    public RespondUser pagination(Integer page, Integer limit, String textSearch) {
         Integer activePageFix = page - 1;
         Sort sort = Sort.by("id").descending();
         Pageable pageable = PageRequest.of(activePageFix, limit, sort);
-        Page<EntityUser> list = repositoryUser.findAll(pageable);
+        Page<EntityUser> list = repositoryUser.findAllByNameUserContaining(pageable, textSearch);
         List<DtoUser> listDto = list.stream().map(MapperUser::mapDto).collect(Collectors.toList());
         return new RespondUser("Success", listDto, list.getTotalPages(), list.getTotalElements(), page);
     }
+
+
 
     @Override
     public RespondUser create(InUser inUser) {

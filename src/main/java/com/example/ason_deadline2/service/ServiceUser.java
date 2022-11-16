@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface ServiceUser {
-    RespondUser pagination(Integer page, Integer limit);
+    RespondUser pagination(Integer page, Integer limit, String textSearch);
     RespondUser create(InUser inUser);
     RespondUser delete(Integer id);
     RespondUser update(Integer id, InUser inUser);

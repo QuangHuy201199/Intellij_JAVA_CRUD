@@ -15,8 +15,8 @@ public class ControllerUser {
     @Autowired
     private ServiceUser serviceUser;
     @GetMapping("")
-    public ResponseEntity<?> pagination(@RequestParam Integer page, @RequestParam Integer limit){
-        return new ResponseEntity(serviceUser.pagination(page, limit), HttpStatus.OK);
+    public ResponseEntity<?> pagination(@RequestParam Integer page, @RequestParam Integer limit, @RequestParam(defaultValue = "") String textSearch){
+        return new ResponseEntity(serviceUser.pagination(page, limit, textSearch), HttpStatus.OK);
     }
 
     @PostMapping("")

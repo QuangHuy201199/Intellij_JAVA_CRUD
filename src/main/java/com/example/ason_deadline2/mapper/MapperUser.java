@@ -8,7 +8,7 @@ public class MapperUser {
     public static EntityUser mapEntity(InUser inUser){
         EntityUser entityUser = new EntityUser();
         entityUser.setNameUser(inUser.getNameUser());
-        entityUser.setDateOfBirth(inUser.getDateOfBirth());l
+        entityUser.setDateOfBirth(inUser.getDateOfBirth());
         if (inUser.getStatus()== null){
             entityUser.setStatus(true);
         }else {

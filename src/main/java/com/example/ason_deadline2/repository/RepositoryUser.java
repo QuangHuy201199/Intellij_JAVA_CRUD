@@ -10,7 +10,8 @@ import org.springframework.stereotype.Repository;
 public interface RepositoryUser extends JpaRepository<EntityUser, Integer> {
     EntityUser getById(Integer Id);
 
-    Page<EntityUser> findAll(Pageable pageable);
+
+    Page<EntityUser> findAllByNameUserContaining(Pageable pageable,String textSearch);
 
 
 }
